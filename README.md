@@ -1,3 +1,4 @@
+![CIDR Block IP Calculator Interface](https://github.com/user-attachments/assets/4e45249e-2594-459f-b483-b3751fae3f0d)
 # 🌐 CIDR Block IP Calculator
 
 A lightweight web-based networking utility that calculates total, reserved, and usable IP addresses within a CIDR block. Designed for subnet planning, networking education, and cloud infrastructure learning.
