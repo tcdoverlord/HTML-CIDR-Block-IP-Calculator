@@ -1,164 +1,140 @@
-![CIDR Block IP Calculator Interface](https://github.com/user-attachments/assets/4e45249e-2594-459f-b483-b3751fae3f0d)
 # 🌐 CIDR Block IP Calculator
 
-A lightweight web-based networking utility that calculates total, reserved, and usable IP addresses within a CIDR block. Designed for subnet planning, networking education, and cloud infrastructure learning.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4e45249e-2594-459f-b483-b3751fae3f0d" alt="CIDR Block IP Calculator Interface" />
+</p>
+
+A lightweight web-based networking tool that calculates total, reserved, and usable IP addresses within a CIDR block.
+
+Designed for subnet planning, networking education, and cloud infrastructure learning.
+
+---
 
 <p align="left">
-  <img src="https://img.shields.io/badge/HTML5-Frontend-orange" alt="HTML5">
-  <img src="https://img.shields.io/badge/CSS3-Styling-blue" alt="CSS3">
-  <img src="https://img.shields.io/badge/JavaScript-Logic-yellow" alt="JavaScript">
-  <img src="https://img.shields.io/badge/Focus-Networking-success" alt="Networking">
-  <img src="https://img.shields.io/badge/IPv4-CIDR-green" alt="IPv4">
+  <img src="https://img.shields.io/badge/HTML5-Frontend-orange" />
+  <img src="https://img.shields.io/badge/CSS3-Styling-blue" />
+  <img src="https://img.shields.io/badge/JavaScript-Logic-yellow" />
+  <img src="https://img.shields.io/badge/Networking-IPv4-green" />
+  <img src="https://img.shields.io/badge/Tool-CIDR%20Calculator-success" />
 </p>
 
 ---
 
-## 🚀 Features
+# 🎬 Demo
 
-* Calculate total IP addresses for CIDR blocks
-* Calculate reserved IP addresses
-* Calculate usable IP addresses
-* Validate supported CIDR ranges
-* Display step-by-step calculation explanations
-* Responsive and user-friendly interface
-* Browser-based with no installation required
+The calculator in action:
+
+<p align="center">
+  <img src="CIDR-Block-IP-Calculator-demo.gif" alt="CIDR Calculator Demo" />
+</p>
 
 ---
 
-## 🛠 Technologies
+# 🚀 Features
 
-* HTML5
-* CSS3
-* JavaScript (ES6)
+- Calculate total IP addresses in CIDR blocks
+- Calculate reserved IP addresses
+- Calculate usable IP addresses
+- CIDR input validation
+- Step-by-step explanation of calculations
+- Clean and responsive UI
+- Fully browser-based (no installation required)
 
 ---
 
-## 📖 How to Use
+# 🛠 Technologies
 
-### Option 1 — Run Locally (Recommended)
+- HTML5
+- CSS3
+- JavaScript (ES6)
 
-1. Download or clone this repository.
-2. Locate the file:
+---
 
-```text
+# 📖 How to Use
+
+## Option 1 — Open Locally
+
+1. Download or clone the repository
+2. Open:
+
+```
 CIDR-Block-IP-Calculator.html
 ```
 
-3. Double-click the file or open it in any modern web browser.
-4. Enter a valid CIDR block such as:
+3. Run it in any modern browser
+4. Enter CIDR values like:
 
-```text
+```
 /16
 /20
 /24
 /28
 ```
 
-5. Click **Calculate** to view the results.
+5. Click **Calculate**
 
 ---
 
-### Option 2 — Clone Using Git
+## Option 2 — Git Clone
 
 ```bash
 git clone https://github.com/tcdoverlord/CIDR-Block-IP-Calculator.git
 cd CIDR-Block-IP-Calculator
 ```
 
-Open:
-
-```text
-CIDR-Block-IP-Calculator.html
-```
-
-in your preferred web browser.
+Open the HTML file in your browser.
 
 ---
 
-### Option 3 — Copy and Paste the Source Code
-
-1. Open:
-
-```text
-CIDR-Block-IP-Calculator.html
-```
-
-2. Copy the entire source code.
-3. Create a new file named:
-
-```text
-CIDR-Block-IP-Calculator.html
-```
-
-4. Paste the source code into the file.
-5. Save the file.
-6. Open it in any modern web browser.
-
----
-
-## 📊 Example Calculation
+# 📊 Example
 
 ### Input
-
-```text
+```
 /24
 ```
 
 ### Output
-
-```text
-Total IP Addresses: 256
-Reserved IP Addresses: 5
-Usable IP Addresses: 251
 ```
-
-The calculator also provides a detailed explanation of how the values were calculated.
+Total IPs: 256
+Reserved IPs: 5
+Usable IPs: 251
+```
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
-```text
+```
 CIDR-Block-IP-Calculator/
 │
 ├── CIDR-Block-IP-Calculator.html
+├── CIDR-Block-IP-Calculator-demo.gif
 ├── README.md
 └── LICENSE
 ```
 
 ---
 
-## 🎯 Skills Demonstrated
+# 💡 Use Cases
 
-* IPv4 Addressing
-* CIDR Notation
-* Subnet Planning
-* Network Fundamentals
-* Client-Side JavaScript Development
-* User Interface Design
-
----
-
-## 💡 Use Cases
-
-* Network Planning
-* CIDR Calculations
-* IPv4 Address Management
-* AWS VPC Learning
-* IT Support Training
-* Networking Education
-* Cloud Infrastructure Fundamentals
+- Network engineering learning
+- AWS / Azure VPC planning
+- Subnetting practice
+- IT training
+- IPv4 addressing education
 
 ---
 
-## 🤝 Contributions
+# 🤝 Contributing
 
-Contributions, bug reports, and feature suggestions are welcome.
+Contributions are welcome.
 
-Feel free to open an Issue or submit a Pull Request to help improve the project.
+Feel free to open issues or submit pull requests.
 
 ---
 
-## 📄 License
+# 👨‍💻 Author
 
-See the LICENSE file included in this repository for additional information.
+**TCDOverLord**
+
+GitHub: https://github.com/tcdoverlord
