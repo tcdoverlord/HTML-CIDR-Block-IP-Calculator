@@ -1,112 +1,467 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A simple responsive CIDR block IP calculator for calculating total and usable IPv4 addresses.">
     <title>CIDR Block IP Calculator</title>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f4f4f9;
-            color: #333;
+        :root {
+            color-scheme: light;
+            --bg: #f4f7fb;
+            --surface: #ffffff;
+            --surface-alt: #f8fafc;
+            --text: #172033;
+            --muted: #5d687a;
+            --border: #d8dee8;
+            --primary: #1769e0;
+            --primary-hover: #0f56bd;
+            --result-bg: #e9f5ff;
+            --result-border: #1769e0;
+            --error-bg: #fdecec;
+            --error: #c62828;
+            --focus: #7aaeff;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
 
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        html[data-theme="dark"] {
+            color-scheme: dark;
+            --bg: #10141b;
+            --surface: #181e27;
+            --surface-alt: #202733;
+            --text: #eef2f7;
+            --muted: #aab5c4;
+            --border: #364151;
+            --primary: #5d9cff;
+            --primary-hover: #82b3ff;
+            --result-bg: #15283b;
+            --result-border: #5d9cff;
+            --error-bg: #3b1d21;
+            --error: #ff7373;
+            --focus: #8bb8ff;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 24px 16px 40px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .page-header {
+            max-width: 680px;
+            margin: 0 auto;
+            text-align: center;
         }
 
         h1 {
-            text-align: center;
-            color: #007BFF;
+            margin: 0 0 8px;
+            color: var(--primary);
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+        }
+
+        .subtitle {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .toolbar {
+            max-width: 680px;
+            margin: 18px auto 0;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: auto;
+            margin: 0;
+            padding: 9px 14px;
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            box-shadow: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .theme-toggle:hover {
+            background: var(--surface-alt);
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 18px auto 0;
+            padding: 24px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
         }
 
         label {
             display: block;
-            margin: 15px 0 5px;
-            font-weight: bold;
+            margin: 0 0 8px;
+            font-weight: 700;
+        }
+
+        .input-help {
+            margin: 0 0 10px;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prefix {
+            color: var(--muted);
+            font-size: 1.1rem;
+            font-weight: 700;
         }
 
         input {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        button {
-            margin-top: 15px;
-            width: 100%;
-            padding: 10px;
-            color: #fff;
-            background: #007BFF;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            min-width: 0;
+            padding: 11px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--surface-alt);
+            color: var(--text);
             font-size: 16px;
         }
 
+        input:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--focus);
+            outline-offset: 2px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 11px 16px;
+            color: #ffffff;
+            background: var(--primary);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
         button:hover {
-            background: #0056b3;
+            background: var(--primary-hover);
+        }
+
+        .secondary-button {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .secondary-button:hover {
+            background: var(--surface-alt);
         }
 
         .result {
             margin-top: 20px;
-            padding: 15px;
-            background: #e9f5ff;
-            border-left: 5px solid #007BFF;
-            border-radius: 4px;
+            padding: 16px;
+            background: var(--result-bg);
+            border-left: 5px solid var(--result-border);
+            border-radius: 6px;
             font-size: 16px;
-            line-height: 1.6;
+            line-height: 1.65;
+        }
+
+        .result strong {
+            display: inline-block;
+            margin-bottom: 2px;
+        }
+
+        .result code {
+            padding: 2px 5px;
+            border-radius: 4px;
+            background: rgba(127, 127, 127, 0.12);
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        .error {
+            color: var(--error);
+            background: var(--error-bg);
+            border-left-color: var(--error);
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .result-actions button {
+            margin: 0;
+        }
+
+        .copy-status {
+            margin: 8px 0 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .info {
+            margin-top: 20px;
+            padding: 14px;
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .info strong {
+            color: var(--text);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 560px) {
+            body {
+                padding: 18px 12px 30px;
+            }
+
+            .toolbar {
+                justify-content: center;
+            }
+
+            .container {
+                padding: 18px;
+            }
+
+            .result-actions {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
+    <header class="page-header">
         <h1>CIDR Block IP Calculator</h1>
-        <form id="ipForm" onsubmit="submitForm(event)">
-            <label for="cidr">Enter CIDR Block (e.g., /16): </label>
-            <input type="number" id="cidr" min="16" max="28" required>
-            <button type="submit">Calculate</button>
-        </form>
-        <div id="result" class="result" style="display: none;"></div>
+        <p class="subtitle">
+            Calculate total and usable IPv4 addresses for a CIDR block.
+        </p>
+    </header>
+
+    <div class="toolbar">
+        <button id="theme-toggle" class="theme-toggle" type="button"
+            aria-label="Switch to dark mode" aria-pressed="false">
+            <span id="theme-icon" aria-hidden="true">🌙</span>
+            <span id="theme-label">Dark Mode</span>
+        </button>
     </div>
 
+    <main class="container">
+        <form id="ipForm">
+            <label for="cidr">Enter CIDR Block</label>
+            <p class="input-help">Enter a CIDR value from /16 through /28.</p>
+
+            <div class="input-row">
+                <span class="prefix" aria-hidden="true">/</span>
+                <input
+                    type="number"
+                    id="cidr"
+                    min="16"
+                    max="28"
+                    step="1"
+                    inputmode="numeric"
+                    placeholder="24"
+                    required
+                    aria-describedby="cidr-help"
+                >
+            </div>
+
+            <button type="submit">Calculate</button>
+            <button id="reset-button" class="secondary-button" type="button">
+                Reset
+            </button>
+        </form>
+
+        <div id="result" class="result hidden" aria-live="polite"></div>
+
+        <div class="info">
+            <strong>Calculation:</strong><br><br>
+
+            The total number of IPv4 addresses in a CIDR block is calculated
+            using the formula:
+            <br>
+            <code>2^(32 - CIDR)</code>
+            <br><br>
+
+            For example, for a CIDR block of <strong>/16</strong>:
+            <br>
+            <code>2^(32 - 16) = 2^16 = 65,536</code> total IP addresses.
+            <br><br>
+
+            The calculator reserves <strong>5 IP addresses</strong>, which
+            includes the network address, broadcast address, and other
+            reserved addresses.
+            <br><br>
+
+            Therefore:
+            <br>
+            <code>65,536 - 5 = 65,531</code> usable IP addresses.
+            <br><br>
+
+            The same calculation is applied to any CIDR value from
+            <strong>/16 through /28</strong>.
+        </div>
+    </main>
+
     <script>
-        function submitForm(event) {
-            event.preventDefault(); // Prevents the page from refreshing
-            calculateIPs(); // Calls the calculation function
+        const form = document.getElementById("ipForm");
+        const cidrInput = document.getElementById("cidr");
+        const resultDiv = document.getElementById("result");
+        const resetButton = document.getElementById("reset-button");
+
+        const themeToggle = document.getElementById("theme-toggle");
+        const themeIcon = document.getElementById("theme-icon");
+        const themeLabel = document.getElementById("theme-label");
+
+        let lastResultText = "";
+
+        function applyTheme(theme) {
+            document.documentElement.dataset.theme = theme;
+
+            const darkMode = theme === "dark";
+
+            themeIcon.textContent = darkMode ? "☀️" : "🌙";
+            themeLabel.textContent = darkMode ? "Light Mode" : "Dark Mode";
+
+            themeToggle.setAttribute("aria-pressed", String(darkMode));
+            themeToggle.setAttribute(
+                "aria-label",
+                darkMode ? "Switch to light mode" : "Switch to dark mode"
+            );
+
+            localStorage.setItem("cidr-calculator-theme", theme);
         }
 
-        function calculateIPs() {
-            const cidr = parseInt(document.getElementById('cidr').value);
-            const resultDiv = document.getElementById('result');
-            if (cidr < 16 || cidr > 28) {
-                resultDiv.style.display = 'block';
-                resultDiv.innerHTML = "Please enter a valid CIDR block between /16 and /28.";
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem("cidr-calculator-theme");
+
+            if (savedTheme === "dark" || savedTheme === "light") {
+                applyTheme(savedTheme);
                 return;
             }
+
+            const prefersDark =
+                window.matchMedia &&
+                window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+            applyTheme(prefersDark ? "dark" : "light");
+        }
+
+        themeToggle.addEventListener("click", () => {
+            const currentTheme = document.documentElement.dataset.theme;
+            applyTheme(currentTheme === "dark" ? "light" : "dark");
+        });
+
+        function calculateIPs() {
+            const cidr = Number.parseInt(cidrInput.value, 10);
+
+            if (!Number.isInteger(cidr) || cidr < 16 || cidr > 28) {
+                showError(
+                    "Please enter a valid CIDR block between /16 and /28."
+                );
+                return;
+            }
+
             const totalIPs = Math.pow(2, 32 - cidr);
             const reservedIPs = 5;
             const usableIPs = totalIPs - reservedIPs;
 
-            resultDiv.style.display = 'block';
+            lastResultText =
+                `CIDR Block: /${cidr}\n` +
+                `Total IP addresses: ${totalIPs}\n` +
+                `Reserved IPs: ${reservedIPs}\n` +
+                `Usable IPs: ${usableIPs}\n` +
+                `Formula: 2^(32 - ${cidr}) = ${totalIPs}`;
+
+            resultDiv.className = "result";
             resultDiv.innerHTML = `
                 <strong>Total IP addresses for /${cidr}: ${totalIPs}</strong><br>
                 <strong>Reserved IPs: ${reservedIPs}</strong> (includes network address, broadcast address, and others)<br>
                 <strong>Usable IPs: ${usableIPs}</strong><br><br>
-                The calculation is based on the formula: <code>2^(32 - CIDR)</code>.<br>
+
+                The calculation is based on the formula:
+                <code>2^(32 - CIDR)</code>.<br>
+
                 For example, for a CIDR block of /${cidr}:<br>
-                <code>2^(32 - ${cidr}) = ${totalIPs} total IPs</code>.<br>
+                <code>2^(32 - ${cidr}) = ${totalIPs}</code> total IPs.<br>
+
                 Subtracting the reserved IPs gives us the usable IPs.
             `;
+
+            resultDiv.classList.remove("hidden");
+
         }
+
+        function showError(message) {
+            lastResultText = "";
+
+            resultDiv.className = "result error";
+            resultDiv.innerHTML = `<strong>${message}</strong>`;
+            resultDiv.classList.remove("hidden");
+        }
+
+        async function copyResults() {
+            const status = document.getElementById("copy-status");
+
+            try {
+                await navigator.clipboard.writeText(lastResultText);
+                status.textContent = "Results copied to your clipboard.";
+            } catch {
+                status.textContent =
+                    "Copy is not available in this browser. You can select the results manually.";
+            }
+        }
+
+        function resetCalculator() {
+            form.reset();
+            resultDiv.className = "result hidden";
+            resultDiv.innerHTML = "";
+            lastResultText = "";
+            cidrInput.focus();
+        }
+
+        form.addEventListener("submit", event => {
+            event.preventDefault();
+            calculateIPs();
+        });
+
+        resetButton.addEventListener("click", resetCalculator);
+
+        initializeTheme();
     </script>
 </body>
 </html>
