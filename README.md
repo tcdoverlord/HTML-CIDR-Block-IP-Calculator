@@ -1,140 +1,208 @@
 # 🌐 CIDR Block IP Calculator
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/4e45249e-2594-459f-b483-b3751fae3f0d" alt="CIDR Block IP Calculator Interface" />
+  <img src="https://github.com/tcdoverlord/CIDR-Block-IP-Calculator/blob/main/cidrblockherovid.gif" alt="CIDR Block IP Calculator Demo" />
 </p>
 
-A lightweight web-based networking tool that calculates total, reserved, and usable IP addresses within a CIDR block.
+A lightweight, browser-based networking tool for calculating the total and displayed usable IPv4 addresses in a CIDR block.
 
-Designed for subnet planning, networking education, and cloud infrastructure learning.
+Designed for subnet planning, networking education, subnetting practice, and cloud infrastructure learning.
 
 ---
 
 <p align="left">
-  <img src="https://img.shields.io/badge/HTML5-Frontend-orange" />
-  <img src="https://img.shields.io/badge/CSS3-Styling-blue" />
-  <img src="https://img.shields.io/badge/JavaScript-Logic-yellow" />
-  <img src="https://img.shields.io/badge/Networking-IPv4-green" />
-  <img src="https://img.shields.io/badge/Tool-CIDR%20Calculator-success" />
+  <img src="https://img.shields.io/badge/HTML5-Frontend-orange" alt="HTML5" />
+  <img src="https://img.shields.io/badge/CSS3-Styling-blue" alt="CSS3" />
+  <img src="https://img.shields.io/badge/JavaScript-Logic-yellow" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/Networking-IPv4-green" alt="Networking IPv4" />
+  <img src="https://img.shields.io/badge/Tool-CIDR%20Calculator-success" alt="CIDR Calculator" />
 </p>
 
 ---
 
-# 🎬 Demo
+## 🎬 Demo
 
-The calculator in action:
+The GIF above shows the calculator being used in the browser.
 
-<p align="center">
-  <img src="CIDR-Block-IP-Calculator-demo.gif" alt="CIDR Calculator Demo" />
-</p>
+No server or installation is required for basic use.
 
 ---
 
-# 🚀 Features
+## 🚀 Features
 
-- Calculate total IP addresses in CIDR blocks
-- Calculate reserved IP addresses
-- Calculate usable IP addresses
+- Calculate total IPv4 addresses for CIDR blocks
+- Calculate the displayed reserved IP count
+- Calculate the displayed usable IP count
 - CIDR input validation
-- Step-by-step explanation of calculations
-- Clean and responsive UI
-- Fully browser-based (no installation required)
+- Supports CIDR values from `/16` through `/28`
+- Shows the calculation formula
+- Shows a simple step-by-step math example
+- Responsive interface for desktop and mobile
+- Light and dark mode
+- Reset calculator button
+- Copy results to the clipboard
+- Fully browser-based
+- No frameworks
+- No external libraries
+- No build system required
 
 ---
 
-# 🛠 Technologies
+## 🧮 How the Calculation Works
 
-- HTML5
-- CSS3
-- JavaScript (ES6)
+The calculator uses the standard IPv4 address-space formula:
+
+```text
+2^(32 - CIDR)
+```
+
+For example, for a `/16` CIDR block:
+
+```text
+2^(32 - 16)
+= 2^16
+= 65,536 total IP addresses
+```
+
+The calculator then subtracts 5 reserved IP addresses from the total:
+
+```text
+65,536 - 5
+= 65,531 usable IP addresses
+```
+
+The same calculation is applied to the selected CIDR value from `/16` through `/28`.
+
+> **Note:** The displayed usable-IP count in this project uses a fixed reservation of 5 addresses. It is intended as a simple planning/learning calculator rather than a complete subnetting implementation for every networking environment.
 
 ---
 
-# 📖 How to Use
+## 📖 How to Use
 
-## Option 1 — Open Locally
+### Option 1 — Open Locally
 
-1. Download or clone the repository
+1. Download or clone the repository.
 2. Open:
 
-```
-CIDR-Block-IP-Calculator.html
-```
-
-3. Run it in any modern browser
-4. Enter CIDR values like:
-
-```
-/16
-/20
-/24
-/28
+```text
+index.html
 ```
 
-5. Click **Calculate**
+3. Enter a CIDR value such as:
 
----
+```text
+16
+20
+24
+28
+```
 
-## Option 2 — Git Clone
+4. Click **Calculate**.
+5. Review the total, reserved, usable, and formula results.
+
+The calculator displays the `/` as part of the interface, so enter the number only.
+
+### Option 2 — Git Clone
 
 ```bash
 git clone https://github.com/tcdoverlord/CIDR-Block-IP-Calculator.git
 cd CIDR-Block-IP-Calculator
 ```
 
-Open the HTML file in your browser.
+Then open `index.html` in your browser.
 
 ---
 
-# 📊 Example
+## 📊 Example
 
 ### Input
-```
-/24
+
+```text
+16
 ```
 
 ### Output
-```
-Total IPs: 256
+
+```text
+Total IP addresses for /16: 65536
 Reserved IPs: 5
-Usable IPs: 251
+Usable IPs: 65531
+```
+
+### Formula
+
+```text
+2^(32 - 16) = 65,536 total IPs
+```
+
+```text
+65,536 - 5 = 65,531 usable IPs
 ```
 
 ---
 
-# 📂 Project Structure
+## 🛠 Technologies
 
-```
+- HTML5
+- CSS3
+- JavaScript (ES6)
+
+No frameworks or external dependencies are required.
+
+---
+
+## 📂 Project Structure
+
+```text
 CIDR-Block-IP-Calculator/
 │
-├── CIDR-Block-IP-Calculator.html
-├── CIDR-Block-IP-Calculator-demo.gif
+├── index.html
+├── cidrblockherovid.gif
 ├── README.md
 └── LICENSE
 ```
 
 ---
 
-# 💡 Use Cases
+## 💡 Use Cases
 
 - Network engineering learning
-- AWS / Azure VPC planning
+- IPv4 addressing education
 - Subnetting practice
 - IT training
-- IPv4 addressing education
+- Cloud infrastructure planning
+- AWS / Azure networking study
+- Quick CIDR address calculations
 
 ---
 
-# 🤝 Contributing
+## 🔒 Privacy
+
+This calculator runs locally in the browser.
+
+It does not require an account, server, database, or external service to perform calculations.
+
+---
+
+## 🤝 Contributing
 
 Contributions are welcome.
 
-Feel free to open issues or submit pull requests.
+You can improve the interface, add networking features, improve documentation, or submit bug fixes through GitHub issues and pull requests.
+
+Before submitting changes, please test the calculator in a modern web browser.
 
 ---
 
-# 👨‍💻 Author
+## 👨‍💻 Author
 
 **TCDOverLord**
 
-GitHub: https://github.com/tcdoverlord
+GitHub:  
+https://github.com/tcdoverlord
+
+---
+
+## 📄 License
+
+See the [LICENSE](LICENSE) file for the license that applies to this project.
